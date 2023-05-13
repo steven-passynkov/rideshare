@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AppProvider } from "../contexts/Appcontext";
+import { AppProvider } from "../contexts/appcontext";
 import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { SessionContextProvider } from "@supabase/auth-helpers-react";
 import { NextUIProvider } from '@nextui-org/react';
@@ -11,7 +11,8 @@ import { createTheme } from "@nextui-org/react";
     colors: {
       // brand colors
       primaryShadow: '$green200',
-      
+
+     
       // ...  more colors
     },
     space: {},

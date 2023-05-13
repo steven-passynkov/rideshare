@@ -6,14 +6,12 @@ export const AppContext = createContext();
 export const AppProvider = ({ children }) => {
   const supabase = useSupabaseClient();
 
-  const [events, setEvents] = useState();
-  
   const selectEvents = async () => {
     let { data, error } = await supabase.from("events").select("*");
     if (error) {
       console.log(error);
     } else {
-      setEvents(data);
+      console.log(data);
     }
   };
 
@@ -21,7 +19,5 @@ export const AppProvider = ({ children }) => {
     selectEvents();
   }, []);
 
-  return (
-    <AppContext.Provider value={{ events }}>{children}</AppContext.Provider>
-  );
+  return <AppContext.Provider value={{}}>{children}</AppContext.Provider>;
 };

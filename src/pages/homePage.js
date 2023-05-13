@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Images from "next/image";
 import Aos from "aos";
 import car from "../../public/car.jpg";
@@ -15,16 +15,34 @@ import {
 import rideShare from "../../public/rideShare.png";
 import Nature from "../../public/nature.png";
 import Router from "next/router";
-import 'aos/dist/aos.css'
+import "aos/dist/aos.css";
 
 function HomePage() {
   function redirectEvents() {
     Router.push("./eventPage");
   }
 
-  useEffect(()=>{
-    Aos.init()
-  },[])
+  const [text, setText] = useState("");
+  const [fullText, setFullText] = useState("Help Protect The Enviroment");
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    Aos.init();
+  }, []);
+
+  function redirectVolunteer() {
+    Router.push("./volunteer");
+  }
+
+  useEffect(() => {
+    if (index < fullText.length) {
+      setTimeout(() => {
+        setText(text + fullText[index]);
+        setIndex(index + 1);
+      }, 10);
+    }
+
+  }, [index]);
 
   return (
     <Container justify="center" alignItems="center">
@@ -32,10 +50,10 @@ function HomePage() {
 
       <Grid.Container justify="center" alignItems="center">
         <Grid>
-          <h1>Help Protect The Enviroment</h1>
+          <h1>{text}</h1>
           <h3>With RideShare</h3>
         </Grid>
-
+        <Spacer x={4} />
         <Grid>
           <Images
             showSkeleton
@@ -49,7 +67,7 @@ function HomePage() {
       <Spacer y={2} />
       <Grid.Container justify="space-evenly" alignItems="center" gap={2}>
         <Grid>
-          <Card data-aos="fade-right" css={{ w: "100%", h: "100%" }} >
+          <Card data-aos="fade-right" css={{ w: "100%", h: "100%" }}>
             <Card.Header css={{ position: "absolute", zIndex: 1, top: 5 }}>
               <Col>
                 <Text
@@ -140,7 +158,7 @@ function HomePage() {
           </Card>
         </Grid>
         <Grid>
-          <Card data-aos="fade-left" css={{ w: "100%", h: "100%" }} >
+          <Card data-aos="fade-left" css={{ w: "100%", h: "100%" }}>
             <Card.Header css={{ position: "absolute", zIndex: 1, top: 5 }}>
               <Col>
                 <Text
@@ -207,6 +225,7 @@ function HomePage() {
                       flat
                       auto
                       rounded
+                      onClick={redirectVolunteer}
                       shadow
                       css={{
                         color: "#02852E",
@@ -231,7 +250,7 @@ function HomePage() {
         </Grid>
       </Grid.Container>
       <Spacer y={2} />
-      <Card css={{ w: "100%", h: "100%" }} data-aos="fade-up">
+      <Card css={{ w: "100%", h: "100%" }} data-aos="fade-up" id="problem">
         <Grid.Container alignItems="center" justify="flex-start">
           <Grid xs={18} alignItems="center" justify="left" direction="column">
             <Spacer x={2} />
@@ -377,7 +396,7 @@ function HomePage() {
       </Card>
 
       <Spacer y={2} />
-      <Card data-aos="fade-down">
+      <Card data-aos="fade-down" id="aboutus">
         <Card.Header>
           <Row alignItems="center" justify="center">
             <Text
@@ -394,20 +413,23 @@ function HomePage() {
             </Text>
           </Row>
         </Card.Header>
+
         <Card.Body>
-          <Text p>
-            Ride is committed to helping the environment by reducing carbon
-            emissions and promoting sustainable transportation options. Our
-            application provides a convenient and efficient way for individuals
-            to share rides, thereby reducing the number of cars on the road and
-            the associated pollution. By using our app, riders can easily find
-            and join shared rides to mutual events, reducing their carbon
-            footprint and helping to improve air quality. We believe that
-            RideShare can make a significant contribution to environmental
-            sustainability, and we are committed to continuing to develop and
-            improve our platform to promote sustainable transportation options
-            for everyone
-          </Text>
+          <Col alignItems="center" justify="center">
+            <Text p alignItems="center" justify="center">
+              Ride is committed to helping the environment by reducing carbon
+              emissions and promoting sustainable transportation options. Our
+              application provides a convenient and efficient way for
+              individuals to share rides, thereby reducing the number of cars on
+              the road and the associated pollution. By using our app, riders
+              can easily find and join shared rides to mutual events, reducing
+              their carbon footprint and helping to improve air quality. We
+              believe that RideShare can make a significant contribution to
+              environmental sustainability, and we are committed to continuing
+              to develop and improve our platform to promote sustainable
+              transportation options for everyone
+            </Text>
+          </Col>
         </Card.Body>
       </Card>
       <Spacer y={2} />
