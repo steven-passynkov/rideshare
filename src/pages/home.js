@@ -12,14 +12,13 @@ import {
   Button,
   Spacer,
 } from "@nextui-org/react";
-import rideShare from "../../public/rideShare.png";
-import Nature from "../../public/nature.png";
+
 import Router from "next/router";
 import "aos/dist/aos.css";
 
 function Home() {
   function redirectEvents() {
-    Router.push("./eventpage");
+    Router.push("./events");
   }
 
   const [text, setText] = useState("");

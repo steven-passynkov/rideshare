@@ -65,7 +65,7 @@ function EventCard(props) {
               color="#AAFF00"
               css={{ cursor: "pointer" }}
             >
-              2023-04-25
+              {props.time?.split("T")[0]}
             </Text>
             <Text
               h3
@@ -111,15 +111,14 @@ function EventCard(props) {
                   color="#000000"
                   css={{ cursor: "pointer" }}
                 >
-                  2023-04-25
+                  {props.time?.split("T")[0]} at {props.time?.split("T")[1]}
                 </Text>
               </Col>
             </Modal.Header>
             <Modal.Body>
               <Col justify="space-evenly" align="center">
                 <Text p size={10}>
-                  I will be going to the convention, i have 4 spots in my car
-                  can take whoever wants to come
+                  {props.description}
                 </Text>
                 <Spacer y={2} />
                 <Card css={{ w: "100%", h: "200px" }}>
@@ -128,11 +127,6 @@ function EventCard(props) {
                       {...viewport}
                       dragRotate={false}
                       touchZoomRotate={false}
-                      fog={{
-                        color: ["rgb", 255, 255, 255],
-                        "horizon-blend": 0.02,
-                        range: [0.8, 8],
-                      }}
                       onDrag={(event) =>
                         setViewport((prevViewPortState) => ({
                           ...prevViewPortState,
@@ -220,11 +214,12 @@ function EventCard(props) {
                 Join Ride
               </Button>
               <Text p size={10}>
-                1 spot available
+                {props.seats} spots available
               </Text>
             </Modal.Footer>
           </Modal>
           <Card.Image
+            showSkeleton
             src={props.img}
             objectFit="cover"
             width="100%"
@@ -272,7 +267,7 @@ function EventCard(props) {
                   bold
                   color="#ffffff"
                 >
-                  3 spots left
+                  {props.seats} spots left
                 </Text>
               </Row>
             </Col>

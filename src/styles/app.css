@@ -1,0 +1,42 @@
+.listItem{
+    cursor:pointer;
+    border-radius: 10px;
+    padding:5px;
+    overflow-x: hidden;
+
+}
+
+
+.listItem:hover{
+    background-color: #F1F3F5;
+}
+
+.list{
+    position:absolute;
+    top:60px;
+    background-color: white;;
+    height:50px;
+    z-index:10;
+    
+    overflow-y: scroll;
+    overflow-x: hidden;
+   width:95%;
+   margin-left: auto;
+      margin-left: auto;
+
+
+
+}
+
+.list::-webkit-scrollbar{
+    width: 10px;
+    background-color: transparent;
+
+
+}
+
+.list::-webkit-scrollbar-thumb{
+    background-color: #d6dee1;
+    border-radius: 20px;
+
+}
