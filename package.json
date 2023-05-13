@@ -20,6 +20,7 @@
     "react-dom": "18.2.0",
     "react-icons": "^4.8.0",
     "react-map-gl": "^7.0.23",
-    "supabase": "^1.50.11"
+    "supabase": "^1.50.11",
+    "uuid": "^9.0.0"
   }
 }

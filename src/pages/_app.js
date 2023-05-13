@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AppProvider } from "../contexts/appcontext";
+import { AppProvider } from "../contexts/AppContext";
 import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { SessionContextProvider } from "@supabase/auth-helpers-react";
 import { NextUIProvider } from '@nextui-org/react';

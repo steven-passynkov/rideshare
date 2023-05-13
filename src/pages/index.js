@@ -1,8 +1,8 @@
-import Head from 'next/head'
-import Image from 'next/image'
+import Head from "next/head";
+import Image from "next/image";
 import { Card, Grid, Text } from "@nextui-org/react";
-import Header from '@/components/navbar';
-import HomePage from './homePage';
+import Header from "@/components/navbar";
+import HomePage from "./home";
 
 export default function Home() {
   return (
@@ -15,7 +15,6 @@ export default function Home() {
       </Head>
       <Header />
       <HomePage />
-      
     </>
-  )
+  );
 }

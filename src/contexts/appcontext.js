@@ -1,11 +1,9 @@
 import React, { useEffect, createContext, useState } from "react";
-import { useSupabaseClient } from "@supabase/auth-helpers-react";
+import { supabase } from "@/lib/supabase";
 
 export const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
-  const supabase = useSupabaseClient();
-
   const [events, setEvents] = useState();
   
   const selectEvents = async () => {

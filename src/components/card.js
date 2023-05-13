@@ -2,7 +2,6 @@ import {
   Grid,
   Card,
   Text,
-  Container,
   Col,
   Row,
   Button,
@@ -10,7 +9,6 @@ import {
   Avatar,
   Modal,
   User,
-  Image,
 } from "@nextui-org/react";
 import { useState } from "react";
 import Map from "react-map-gl";

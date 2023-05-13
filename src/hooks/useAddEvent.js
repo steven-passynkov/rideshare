@@ -1,18 +1,22 @@
 import { useState, useEffect } from "react";
-import { useSupabaseClient } from "@supabase/auth-helpers-react";
+import { supabase } from "../lib/supabase";
 
-export const addEvent = ({ }) => {
-  const supabase = useSupabaseClient();
-
+export const useAddEvent = ({ name, description, location, image, max_people }, shouldAddEvent) => {
   const addEvent = async () => {
-    let { error } = await supabase
-      .from("events")
-      .insert({})
+    let { error } = await supabase.from("events").insert({
+      name: name,
+      description: description,
+      location: location,
+      image, image,
+      max_people: max_people,
+    });
   };
 
   useEffect(() => {
-    addEvent();
-  }, []);
+    if (shouldAddEvent) {
+      addEvent();
+    }
+  }, [shouldAddEvent]);
 
   return {};
 };

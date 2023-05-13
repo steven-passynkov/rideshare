@@ -17,9 +17,9 @@ import Nature from "../../public/nature.png";
 import Router from "next/router";
 import "aos/dist/aos.css";
 
-function HomePage() {
+function Home() {
   function redirectEvents() {
-    Router.push("./eventPage");
+    Router.push("./eventpage");
   }
 
   const [text, setText] = useState("");
@@ -41,7 +41,6 @@ function HomePage() {
         setIndex(index + 1);
       }, 10);
     }
-
   }, [index]);
 
   return (
@@ -437,4 +436,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default Home;

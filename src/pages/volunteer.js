@@ -11,7 +11,9 @@ import {
 } from "@nextui-org/react";
 import { AiOutlineHome } from "react-icons/ai";
 import Router from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useAddEvent } from "@/hooks/useAddEvent";
+import { useAddImage } from "@/hooks/useAddImage";
 
 function Volunteer() {
   const titles = [
@@ -22,15 +24,40 @@ function Volunteer() {
     "RideShare has been posted !",
   ];
 
+  const [shouldAddEvent, setShouldAddEvent] = useState(false);
   const [progress, setProgress] = useState(100 / 5);
   const [title, setTitle] = useState(0);
+  const [image, setImage] = useState();
+  const [imageUrl, setImageUrl] = useState();
   const [inputT, setinputT] = useState(0);
+
+  const { data, error } = useAddImage({ image: image });
+
+  useAddEvent(
+    {
+      name: "steven",
+      description: "me",
+      location: "home",
+      image: data?.path.split("/").pop(),
+      max_people: "4",
+    },
+    shouldAddEvent
+  );
+
+  function handleImageChange(e) {
+    const file = e.target.files[0];
+    setImage(file);
+    const imageUrl = URL.createObjectURL(file);
+    setImageUrl(imageUrl);
+  }
+
   function redirectHome() {
     Router.push("./");
   }
 
   function nextStep() {
     if (title == 4) {
+      setShouldAddEvent(true);
       redirectHome();
     } else {
       setProgress(progress + 100 / 5);
@@ -118,7 +145,15 @@ function Volunteer() {
             ) : inputT == 2 ? (
               <Input type="datetime-local" />
             ) : inputT == 3 ? (
-              <Input type="file" label="Event Picture" />
+              <>
+                <Input
+                  type="file"
+                  label="Event Picture"
+                  accept="image/png, image/jpeg"
+                  onChange={handleImageChange}
+                />
+                {imageUrl && <img src={imageUrl} alt="selected" />}
+              </>
             ) : (
               <Text size={20}>
                 Completed ! Your RideShare has been made public.
