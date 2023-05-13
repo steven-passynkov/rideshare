@@ -1,3 +1,4 @@
+import { useEditEvent } from "@/hooks/useEditEvent";
 import {
   Grid,
   Card,
@@ -13,10 +14,14 @@ import {
 import { useState } from "react";
 import Map from "react-map-gl";
 import { Marker } from "react-map-gl";
+import { useContext } from "react";
+import { UserContext } from "@/contexts/UserContext";
 
 function EventCard(props) {
   const [visible, setVisible] = useState(false);
   const openModule = () => setVisible(true);
+  const {session} = useContext(UserContext)
+  const [shouldJoin,seShouldJoin] = useState(false)
 
   const [viewport, setViewport] = useState({
     latitude: 37.7749,
@@ -42,6 +47,11 @@ function EventCard(props) {
     "https://i.pravatar.cc/150?u=a048581f4e29026701d",
     "https://i.pravatar.cc/150?u=a092581d4ef9026700d",
   ];
+
+  const { data, error } = useEditEvent(
+    { people:  session.user.id, id:props.id},
+    shouldJoin
+  );
 
   return (
     <Grid>
@@ -203,6 +213,7 @@ function EventCard(props) {
                 shadow
                 rounded
                 color="#02852E"
+                onPress={() => seShouldJoin(true)}
                 css={{
                   color: "#02852E",
                   boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",

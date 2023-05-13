@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabase";
 import { v4 as uuidv4 } from "uuid";
 
-export const useSignup = ({ name, image, email, password }, shouldSignup) => {
+export const useAddProfilePicture = ({ image }) => {
   const [storedProfilePicture, setStoredProfilePicture] = useState();
   const [data, setData] = useState();
   const [error, setError] = useState();
@@ -14,20 +14,14 @@ export const useSignup = ({ name, image, email, password }, shouldSignup) => {
         cacheControl: "3600",
         upsert: false,
       });
-    setStoredProfilePicture(data.path);
-    console.log(data)
+    setStoredProfilePicture(data);
     setError(error);
   };
 
-  const signUp = async () => {
-    let { data, error } = await supabase.auth.signUp({
-      email: email,
-      password: password,
-      options: {
-        data: {
-          first_name: name,
-          profile_picture: storedProfilePicture,
-        },
+  const addProfilePicture = async () => {
+    let { data, error } = await supabase.auth.update({
+      data: {
+        profile_picture: storedProfilePicture,
       },
     });
     setData(data);
@@ -37,14 +31,11 @@ export const useSignup = ({ name, image, email, password }, shouldSignup) => {
   useEffect(() => {
     if (image) {
       storeProfilePicture();
+      if (storedProfilePicture) {
+        addProfilePicture();
+      }
     }
   }, [image]);
-
-  useEffect(() => {
-    if (shouldSignup) {
-      signUp();
-    }
-  }, [shouldSignup]);
 
   return { data, error };
 };

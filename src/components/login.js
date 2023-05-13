@@ -1,4 +1,4 @@
-import { Button, Text, Modal, Input, Row, Checkbox } from "@nextui-org/react";
+import { Button, Text, Modal, Input, Row, Checkbox,Link } from "@nextui-org/react";
 import { AiOutlineMail } from "react-icons/ai";
 import { BsFillPersonFill, BsPerson } from "react-icons/bs";
 import { useLogin } from "@/hooks/useLogin";
@@ -13,6 +13,10 @@ function Login(props) {
     { email: email, password: password },
     shouldLogin
   );
+  function loginRedirect(){
+    props.closeHandler();
+    props.signUpRedirect(true)
+  }
 
   useEffect(() => {
     if (error) {
@@ -20,12 +24,21 @@ function Login(props) {
     }
   }, [error]);
 
+  function handleLogin(e) {
+    if (password && email) {
+      setShouldLogin(true);
+      props.closeHandler();
+    } else {
+      console.log("enterLogin");
+    }
+  }
+
   return (
     <Modal
       closeButton
       aria-labelledby="modal-title"
       open={props.open}
-      onClose={props.setopen}
+      onClose={props.closeHandler}
     >
       <Modal.Header>
         <Text id="modal-title" size={18}>
@@ -54,6 +67,7 @@ function Login(props) {
           contentLeft={<BsPerson fill="currentColor" />}
           onChange={(event) => setPassword(event.target.value)}
         />
+        <Link align="center" justify="center" css={{textAlign:"center"}} onClick={() => loginRedirect()}>Don't Have an Account?</Link>
       </Modal.Body>
       <Modal.Footer>
         <Button
@@ -69,7 +83,7 @@ function Login(props) {
               opacity: "0.6",
             },
           }}
-          onPress={props.setopen}
+          onPress={props.closeHandler}
         >
           Close
         </Button>
@@ -87,7 +101,7 @@ function Login(props) {
             },
           }}
           //onPress={props.setopen}
-          onPress={() => setShouldLogin(true)}
+          onPress={() => handleLogin()}
         >
           Log in
         </Button>

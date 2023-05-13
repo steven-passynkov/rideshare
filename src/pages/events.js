@@ -206,6 +206,7 @@ function Events() {
                     img={`https://zyyhrcdinczrzawuvnjs.supabase.co/storage/v1/object/public/images/public/${event.image}`}
                     title={event.name}
                     key={index}
+                    id={event.id}
                     seats={
                       event.people
                         ? event.people.length() - event.max_people
@@ -213,6 +214,8 @@ function Events() {
                     }
                     time={event.eventTime}
                     description={event.description}
+                    volunteer={event.user}
+                    people={event.people}
                   />
                 ))}
             </>

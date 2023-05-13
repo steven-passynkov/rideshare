@@ -15,22 +15,40 @@ import {
 
 import Router from "next/router";
 import "aos/dist/aos.css";
+import  {useContext}  from "react";
+import { UserContext } from "@/contexts/UserContext";
+import Login from "@/components/login";
+import Signup from "@/components/signup";
 
 function Home() {
-  function redirectEvents() {
-    Router.push("./events");
-  }
+  const [login, setLogin] = useState(false);
+  const [signup, setSignup] = useState(false);
+  const loginhandler = () => setLogin(false);
+  const signuphandler = () => setSignup(false);
 
   const [text, setText] = useState("");
   const [fullText, setFullText] = useState("Reduce the emission of CO2");
   const [index, setIndex] = useState(0);
+  const { session } = useContext(UserContext);
 
+  function redirectEvents() {
+
+    if (session) {
+      Router.push("./events");
+    } else {
+      setSignup(true);
+    }
+  }
   useEffect(() => {
     Aos.init();
   }, []);
 
   function redirectVolunteer() {
-    Router.push("./volunteer");
+    if (session) {
+      Router.push("./volunteer");
+    } else {
+      setSignup(true);
+    }
   }
 
   useEffect(() => {
@@ -44,6 +62,8 @@ function Home() {
 
   return (
     <Container justify="center" alignItems="center">
+       <Login open={login} closeHandler={loginhandler} signUpRedirect={setSignup} />
+        <Signup open={signup} closeHandler={signuphandler} loginredirect={setLogin} />
       <Spacer y={3} />
 
       <Grid.Container justify="center" alignItems="center">
