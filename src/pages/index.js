@@ -1,6 +1,8 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import { Card, Grid, Text } from "@nextui-org/react";
+import Header from '@/components/navbar';
+import HomePage from './homePage';
 
 export default function Home() {
   return (
@@ -11,29 +13,9 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Grid.Container gap={2}>
-      <Grid xs={4}>
-        <Card>
-          <Card.Body>
-            <Text>Default card. (shadow)</Text>
-          </Card.Body>
-        </Card>
-      </Grid>
-      <Grid xs={4}>
-        <Card variant="flat">
-          <Card.Body>
-            <Text>Flat card.</Text>
-          </Card.Body>
-        </Card>
-      </Grid>
-      <Grid xs={4}>
-        <Card variant="bordered">
-          <Card.Body>
-            <Text>Bordered card.</Text>
-          </Card.Body>
-        </Card>
-      </Grid>
-    </Grid.Container>
+      <Header />
+      <HomePage />
+      
     </>
   )
 }
