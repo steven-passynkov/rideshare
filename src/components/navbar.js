@@ -3,15 +3,25 @@ import {
   Button,
   Link,
   Text,
-  Card,
-  Radio,
-  Dropdown,
-  Avatar,
-  Collapse,
+  Modal,
+  Input,
+  Row,
+  Checkbox,
 } from "@nextui-org/react";
 import React from "react";
 
+import { AiOutlineMail } from "react-icons/ai";
+import { BsFillPersonFill, BsPerson } from "react-icons/bs";
+
 function Header() {
+  const [visible, setVisible] = React.useState(false);
+  const handler = () => setVisible(true);
+
+  const closeHandler = () => {
+    setVisible(false);
+    console.log("closed");
+  };
+
   const [variant, setVariant] = React.useState("static");
 
   const variants = ["static", "floating", "sticky"];
@@ -44,7 +54,86 @@ function Header() {
       <Navbar.Content hideIn={"xs"}>
         <Navbar.Link href="#aboutus">About Us</Navbar.Link>
         <Navbar.Link href="#problem">The Problem</Navbar.Link>
-        <Navbar.Link href="#">Events</Navbar.Link>
+        <Button auto shadow onPress={handler}>
+          Open modal
+        </Button>
+        <Modal
+          closeButton
+          aria-labelledby="modal-title"
+          open={visible}
+          onClose={closeHandler}
+        >
+          <Modal.Header>
+            <Text id="modal-title" size={18}>
+              Sign Up
+            </Text>
+          </Modal.Header>
+          <Modal.Body>
+            <Input
+              clearable
+              bordered
+              fullWidth
+              color="#59A160"
+              size="lg"
+              placeholder="Name"
+              contentLeft={<BsFillPersonFill fill="currentColor" />}
+            />
+            <Input
+              clearable
+              bordered
+              fullWidth
+              color="#59A160"
+              size="lg"
+              placeholder="Last name"
+              contentLeft={<BsPerson fill="currentColor" />}
+            />
+            <Input
+              clearable
+              bordered
+              fullWidth
+              color="#59A160"
+              size="lg"
+              placeholder="Email"
+              contentLeft={<AiOutlineMail fill="currentColor" />}
+            />
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              auto
+              flat
+              animated
+              shadow
+              css={{
+                color: "#FFFFFF",
+                bg: "#02852E",
+                boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",
+                "&:hover": {
+                  opacity: "0.6",
+                },
+              }}
+              onPress={closeHandler}
+            >
+              Close
+            </Button>
+            <Button
+              flat
+              animated
+              auto
+              shadow
+              css={{
+                color: "#02852E",
+                bg: "rgba(255, 255, 255, 0.8)",
+                boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",
+                "&:hover": {
+                  opacity: "0.6",
+                },
+              }}
+              onPress={closeHandler}
+            >
+              Sign in
+            </Button>
+          </Modal.Footer>
+        </Modal>{" "}
       </Navbar.Content>
       <Navbar.Content>
         <Navbar.Link css={{ color: "#105948" }} href="./volunteer">

@@ -12,18 +12,17 @@ import {
   Button,
   Spacer,
 } from "@nextui-org/react";
-import rideShare from "../../public/rideShare.png";
-import Nature from "../../public/nature.png";
+
 import Router from "next/router";
 import "aos/dist/aos.css";
 
 function Home() {
   function redirectEvents() {
-    Router.push("./eventpage");
+    Router.push("./events");
   }
 
   const [text, setText] = useState("");
-  const [fullText, setFullText] = useState("Help Protect The Enviroment");
+  const [fullText, setFullText] = useState("Reduce the emission of CO2");
   const [index, setIndex] = useState(0);
 
   useEffect(() => {

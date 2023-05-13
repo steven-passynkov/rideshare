@@ -1,0 +1,56 @@
+.listItem{
+    cursor:pointer;
+    border-radius: 10px;
+    padding:5px;
+    overflow-x: hidden;
+    z-index:100;
+
+
+}
+
+
+.listItem:hover{
+    background-color: #F1F3F5;
+}
+
+.list{
+    position:absolute;
+    top:60px;
+    background-color: white;;
+    height:100px;
+    z-index:100;
+    
+    overflow-y: scroll;
+    overflow-x: hidden;
+   width:95%;
+   margin-left: auto;
+      margin-left: auto;
+    
+
+
+}
+
+.volunteerCard::-webkit-scrollbar{
+    width: 10px;
+    background-color: transparent;
+}
+
+
+.volunteerCard::-webkit-scrollbar-thumb{
+    background-color: #d6dee1;
+    border-radius: 20px;
+}
+
+
+.list::-webkit-scrollbar{
+    width: 10px;
+    background-color: transparent;
+
+
+}
+
+.list::-webkit-scrollbar-thumb{
+    background-color: #d6dee1;
+    border-radius: 20px;
+
+}

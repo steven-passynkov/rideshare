@@ -16,10 +16,10 @@ import Router from "next/router";
 import EventCard from "@/components/card";
 import { AiOutlineHome, AiOutlineSearch } from "react-icons/ai";
 import Aos from "aos";
-import { useEffect, useState, useMemo, useContext } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { GrLocation } from "react-icons/gr";
 import { handleClientScriptLoad } from "next/script";
-import { AppContext } from "@/contexts/AppContext";
+import { useFetchEvents } from "@/hooks/useFetchEvents";
 
 function Events() {
   function redirectHome() {
@@ -30,11 +30,23 @@ function Events() {
     Aos.init(2000);
   }, []);
 
-  const { events } = useContext(AppContext);
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(9);
+  const [search, setSearch] = useState("");
   const [selected, setSelected] = useState(new Set(["Event"]));
   const [time, setTime] = useState(new Set(["Time"]));
   const [visible, setVisible] = useState(false);
   const handler = () => setVisible(true);
+
+  const { events, count, error } = useFetchEvents({
+    pageNumber: page,
+    pageSize: pageSize,
+    filter: search, //make array
+  });
+
+  useEffect(() => {
+    setPage(1);
+  }, [search]);
 
   const selectedValue = useMemo(
     () => Array.from(selected).join(", ").replaceAll("_", " "),
@@ -44,6 +56,11 @@ function Events() {
   const closeHandler = () => {
     setVisible(false);
   };
+
+  const start = (page - 1) * pageSize + 1;
+  const end = Math.min(page * pageSize, count);
+
+  const totalPages = Math.ceil(count / pageSize);
 
   return (
     <Container justify="center" alignItems="center">
@@ -95,6 +112,7 @@ function Events() {
             size="xl"
             placeholder="find events"
             clearable
+            onChange={(event) => setSearch(event.target.value)}
             css={{ color: "#02852E", border: "#02852E", width: "500px" }}
             contentRight={<AiOutlineSearch />}
           />
@@ -138,7 +156,6 @@ function Events() {
                   }}
                   flat
                 >
-                  {" "}
                   {selectedValue}
                 </Dropdown.Button>
                 <Dropdown.Menu
@@ -175,97 +192,84 @@ function Events() {
         <>
           {events && events.length > 0 ? (
             <>
-              {events.map((event, index) => (
-                <EventCard
-                  data-aos="fade-up"
-                  img={`https://zyyhrcdinczrzawuvnjs.supabase.co/storage/v1/object/public/images/public/${event.image}`}
-                  title={event.name}
-                  key={index}
-                />
-              ))}
+              {events
+                //.filter((event) =>
+                //event.name.toLowerCase().includes(search || "".toLowerCase())
+                //)
+                .map((event, index) => (
+                  <EventCard
+                    data-aos="fade-up"
+                    img={`https://zyyhrcdinczrzawuvnjs.supabase.co/storage/v1/object/public/images/public/${event.image}`}
+                    title={event.name}
+                    key={index}
+                    seats={
+                      event.people
+                        ? event.people.length() - event.max_people
+                        : event.max_people
+                    }
+                    time={event.eventTime}
+                    description={event.description}
+                  />
+                ))}
             </>
           ) : (
             <>{/* no events */}</>
           )}
         </>
-        {/*
-        <EventCard
-          data-aos="fade-up"
-          img={
-            "https://d1.awsstatic.com/i-pHDD8bP-X2.78f042801854f6eafbe76d6ded04f07f15ecdfd7.jpeg"
-          }
-          title={"Amazon Dev Convention"}
-        />
-        <EventCard
-          data-aos="fade-up"
-          img={
-            "https://i.cbc.ca/1.6821289.1682399360!/cpImage/httpImage/maple-leafs-24042023.jpg"
-          }
-          title={"Leafs Game"}
-        />
-
-        <EventCard
-          data-aos="fade-up"
-          img={
-            "https://i.cbc.ca/1.6218940.1634774921!/cumulusImage/httpImage/image.jpg_gen/derivatives/4x3_1180/toronto-raptors-home-opener.jpg"
-          }
-          title={"Toronto Raptors game"}
-        />
-
-        <EventCard
-          data-aos="fade-up"
-          img={
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGnEaYFcLYmSDyqKEKQuUILLIjfLCvTGGzTQ&usqp=CAU"
-          }
-          title={"Concert Toronto"}
-        />
-
-        <EventCard
-          data-aos="fade-up"
-          img={
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRNJCxEDMQyN2FLUbwel8W5MxVbwGXP1DpdQ&usqp=CAU"
-          }
-          title={"Beaches"}
-        />
-        <EventCard
-          data-aos="fade-up"
-          img={
-            "https://d1.awsstatic.com/i-pHDD8bP-X2.78f042801854f6eafbe76d6ded04f07f15ecdfd7.jpeg"
-          }
-          title={"Amazon Dev Convention"}
-        />
-        <EventCard
-          data-aos="fade-up"
-          img={
-            "https://i.cbc.ca/1.6821289.1682399360!/cpImage/httpImage/maple-leafs-24042023.jpg"
-          }
-          title={"Leafs Game"}
-        />
-
-        <EventCard
-          data-aos="fade-up"
-          img={
-            "https://i.cbc.ca/1.6218940.1634774921!/cumulusImage/httpImage/image.jpg_gen/derivatives/4x3_1180/toronto-raptors-home-opener.jpg"
-          }
-          title={"Toronto Raptors game"}
-        />
-
-        <EventCard
-          data-aos="fade-up"
-          img={
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGnEaYFcLYmSDyqKEKQuUILLIjfLCvTGGzTQ&usqp=CAU"
-          }
-          title={"Concert Toronto"}
-        />
-
-        <EventCard
-          data-aos="fade-up"
-          img={
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRNJCxEDMQyN2FLUbwel8W5MxVbwGXP1DpdQ&usqp=CAU"
-          }
-          title={"Beaches"}
-        />*/}
       </Grid.Container>
+      <Spacer y={2} />
+      <Col align="center" justify="center">
+        <Row align="center" justify="center">
+          <Button
+            flat
+            animated
+            auto
+            shadow
+            rounded
+            css={{
+              color: "#FFFFFF",
+              bg: "#02852E",
+              boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",
+              "&:hover": {
+                opacity: 0.8,
+              },
+            }}
+            disabled={page === 1}
+            onClick={() => setPage((prevPageNumber) => prevPageNumber - 1)}
+          >
+            Previous Page
+          </Button>
+          <Spacer x={1} />
+          <Button
+            flat
+            animated
+            auto
+            shadow
+            rounded
+            css={{
+              color: "#02852E",
+              bg: "rgba(255, 255, 255, 0.8)",
+              boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",
+              "&:hover": {
+                opacity: 0.8,
+              },
+            }}
+            disabled={page === totalPages}
+            onClick={() => setPage((prevPageNumber) => prevPageNumber + 1)}
+          >
+            Next Page
+          </Button>
+        </Row>
+        <Spacer y={1} />
+
+        <Row align="center" justify="center">
+          <p>
+            Showing events {start} to {end} of {count}
+          </p>
+        </Row>
+      </Col>
+
+      <Spacer y={3} />
     </Container>
   );
 }
