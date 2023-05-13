@@ -23,12 +23,21 @@ function Volunteer() {
   });
 
   const titles = [
+<<<<<<< HEAD
     "Event Title",
     "Event Location",
     "Number of Car Seats",
     "When are you going?",
     "Picture of Event",
     "Information",
+=======
+    "Title",
+    "Location",
+    "Number of Seats",
+    "When are you going?",
+    "Picture of Event",
+    "Description",
+>>>>>>> 4c7feaa8e577295239ca17abbebf6cab7c655a93
     "RideShare has been posted !",
   ];
 
@@ -46,8 +55,11 @@ function Volunteer() {
   const [searchResults, setSearchResults] = useState([]);
   const [selectedResult, setSelectedResult] = useState(null);
   const [events, setEvents] = useState([]);
+<<<<<<< HEAD
   const [select, setSelect] = useState([]);
   const [cat, setCat] = useState(false);
+=======
+>>>>>>> 4c7feaa8e577295239ca17abbebf6cab7c655a93
 
   const { data, error } = useAddImage({ image: image });
 
@@ -84,6 +96,7 @@ function Volunteer() {
       });
   }
 
+<<<<<<< HEAD
   function toggle(index) {
     if (select.includes(index)) {
       setSelect(
@@ -101,6 +114,8 @@ function Volunteer() {
     }
   }
 
+=======
+>>>>>>> 4c7feaa8e577295239ca17abbebf6cab7c655a93
   function handleImageChange(e) {
     const file = e.target.files[0];
     setImage(file);
@@ -112,7 +127,10 @@ function Volunteer() {
   }
 
   function nextStep() {
+<<<<<<< HEAD
     console.log(title);
+=======
+>>>>>>> 4c7feaa8e577295239ca17abbebf6cab7c655a93
     if (title == 5) {
       setShouldAddEvent(true);
       redirectHome();
@@ -128,10 +146,13 @@ function Volunteer() {
     if (title == 5) {
       setValid(true);
     }
+<<<<<<< HEAD
 
     if (title == 3 && time) {
       setValid(true);
     }
+=======
+>>>>>>> 4c7feaa8e577295239ca17abbebf6cab7c655a93
   });
 
   function changeTitle(e, functions, states) {
@@ -140,19 +161,41 @@ function Volunteer() {
   }
 
   function writeTitle(e) {
+<<<<<<< HEAD
     setValid(true);
     setEvents([]);
     setEventTitle(e);
     client.events
       .search({ q: `${e}`, "start.gte": "2023-05-02" })
+=======
+    setValid(false);
+    setEvents([]);
+    setEventTitle(e);
+    client.events
+      .search({ q: `${e}` })
+>>>>>>> 4c7feaa8e577295239ca17abbebf6cab7c655a93
       .then((results) => {
         for (const event of results) {
           setEvents((oldArray) => [...oldArray, event]);
         }
+<<<<<<< HEAD
       })
       .catch((err) => console.error(err));
 
     console.log(events);
+=======
+    ).catch(
+        err => console.error(err)
+    );
+
+    console.log(events)
+
+    setValid(true)
+
+   
+    
+   
+>>>>>>> 4c7feaa8e577295239ca17abbebf6cab7c655a93
   }
 
   return (
@@ -245,12 +288,15 @@ function Volunteer() {
                       onClick={() => (
                         setEventTitle(event.title),
                         setEvents([]),
+<<<<<<< HEAD
                         setDescription(event.description),
                         setTime(
                           event.start.split(":")[0] +
                             ":" +
                             event.start.split(":")[1]
                         ),
+=======
+>>>>>>> 4c7feaa8e577295239ca17abbebf6cab7c655a93
                         setValid(true)
                       )}
                     >
@@ -312,6 +358,7 @@ function Volunteer() {
                 />
               </>
             ) : inputT == 5 ? (
+<<<<<<< HEAD
               <Grid.Container justify="space-evenly" gap={2}>
                 {categories
                   ? categories.map((cat, index) => (
@@ -341,6 +388,8 @@ function Volunteer() {
                   : ""}
               </Grid.Container>
             ) : inputT == 6 ? (
+=======
+>>>>>>> 4c7feaa8e577295239ca17abbebf6cab7c655a93
               <Input
                 clearable
                 underlined
@@ -377,7 +426,11 @@ function Volunteer() {
                     height: "50px",
                   }}
                 >
+<<<<<<< HEAD
                   {title == 6 ? "Done!" : "Next"}
+=======
+                  {title == 5 ? "Close" : "Next"}
+>>>>>>> 4c7feaa8e577295239ca17abbebf6cab7c655a93
                 </Button>
               ) : (
                 <Button
@@ -397,7 +450,11 @@ function Volunteer() {
                     height: "50px",
                   }}
                 >
+<<<<<<< HEAD
                   {title == 6 ? "Close" : "Next"}
+=======
+                  {title == 5 ? "Close" : "Next"}
+>>>>>>> 4c7feaa8e577295239ca17abbebf6cab7c655a93
                 </Button>
               )}
             </Row>

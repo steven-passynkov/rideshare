@@ -41,6 +41,7 @@ function Events() {
   const { events, count, error } = useFetchEvents({
     pageNumber: page,
     pageSize: pageSize,
+<<<<<<< HEAD
     filter: search, //make array
   });
 
@@ -48,6 +49,10 @@ function Events() {
     setPage(1);
   }, [search]);
 
+=======
+  });
+
+>>>>>>> 4c7feaa8e577295239ca17abbebf6cab7c655a93
   const selectedValue = useMemo(
     () => Array.from(selected).join(", ").replaceAll("_", " "),
     [selected]
