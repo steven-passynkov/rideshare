@@ -9,8 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "next": "13.3.1",
+    "@nextui-org/react": "^1.0.0-beta.12",
+    "@supabase/auth-helpers-nextjs": "^0.6.1",
+    "@supabase/auth-helpers-react": "^0.3.1",
+    "@supabase/supabase-js": "^2.21.0",
+    "next": "13.3.0",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "supabase": "^1.50.11"
   }
 }
