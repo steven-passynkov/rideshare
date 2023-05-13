@@ -394,7 +394,9 @@ function Home() {
       </Card>
 
       <Spacer y={2} />
-      <Card data-aos="fade-down" id="aboutus">
+      <Grid.Container gap={2} justify="center">
+        <Grid xs={6}>
+      <Card  data-aos="fade-down" id="aboutus">
         <Card.Header>
           <Row alignItems="center" justify="center">
             <Text
@@ -411,25 +413,41 @@ function Home() {
             </Text>
           </Row>
         </Card.Header>
-
         <Card.Body>
           <Col alignItems="center" justify="center">
-            <Text p alignItems="center" justify="center">
-              Ride is committed to helping the environment by reducing carbon
-              emissions and promoting sustainable transportation options. Our
-              application provides a convenient and efficient way for
-              individuals to share rides, thereby reducing the number of cars on
-              the road and the associated pollution. By using our app, riders
-              can easily find and join shared rides to mutual events, reducing
-              their carbon footprint and helping to improve air quality. We
-              believe that RideShare can make a significant contribution to
-              environmental sustainability, and we are committed to continuing
-              to develop and improve our platform to promote sustainable
-              transportation options for everyone
-            </Text>
+              <Text>Ride Share allows people to share rides when attending events. Instead driving to an event indiviudally, users can share their rides, decreasing their carbon emission by a huge factor</Text>
           </Col>
         </Card.Body>
       </Card>
+      </Grid>
+      <Grid xs={6}>
+      <Card data-aos="fade-down" id="aboutus">
+        <Card.Header>
+          <Row alignItems="center" justify="center">
+            <Text
+              h2
+              transform="uppercase"
+              weight="bold"
+              color="black"
+              css={{
+                textGradient: "45deg, $green900 -20%, $green800 50%",
+                m: 0,
+              }}
+            >
+              How RideShare Works
+            </Text>
+          </Row>
+        </Card.Header>
+        <Card.Body>
+          <Col alignItems="center" justify="center">
+              <Text>Planning on attending an event? Be a volunteer. Pick up others and drive together to the event your are attending. Want to reduce 
+                Carbon Emission when attending an event? Join a ride.
+              </Text>
+          </Col>
+        </Card.Body>
+      </Card>
+      </Grid>
+      </Grid.Container>
       <Spacer y={2} />
     </Container>
   );

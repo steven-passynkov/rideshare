@@ -33,7 +33,8 @@ function Events() {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(9);
   const [search, setSearch] = useState("");
-  const [selected, setSelected] = useState(new Set(["Event"]));
+  const [categorie, setCategorie] = useState(new Set(["Event"]));
+  const [date, setDate] = useState();
   const [time, setTime] = useState(new Set(["Time"]));
   const [visible, setVisible] = useState(false);
   const handler = () => setVisible(true);
@@ -41,21 +42,18 @@ function Events() {
   const { events, count, error } = useFetchEvents({
     pageNumber: page,
     pageSize: pageSize,
-<<<<<<< HEAD
-    filter: search, //make array
+    search: search,
+    categories: categorie,
+    date: date,
   });
 
   useEffect(() => {
     setPage(1);
   }, [search]);
 
-=======
-  });
-
->>>>>>> 4c7feaa8e577295239ca17abbebf6cab7c655a93
-  const selectedValue = useMemo(
-    () => Array.from(selected).join(", ").replaceAll("_", " "),
-    [selected]
+  const categorieValue = useMemo(
+    () => Array.from(categorie).join(", ").replaceAll("_", " "),
+    [categorie]
   );
 
   const closeHandler = () => {
@@ -161,15 +159,15 @@ function Events() {
                   }}
                   flat
                 >
-                  {selectedValue}
+                  {categorieValue}
                 </Dropdown.Button>
                 <Dropdown.Menu
                   aria-label="Single selection actions"
                   color="secondary"
                   disallowEmptySelection
                   selectionMode="single"
-                  selectedKeys={selected}
-                  onSelectionChange={setSelected}
+                  selectedKeys={categorie}
+                  onSelectionChange={setCategorie}
                 >
                   <Dropdown.Item key="sport">Sport</Dropdown.Item>
                   <Dropdown.Item key="conference">Conference</Dropdown.Item>
@@ -186,6 +184,7 @@ function Events() {
                 }}
                 width="186px"
                 type="date"
+                onChange={(event) => setDate(event.target.value)}
               />
             </Grid>
           </Grid.Container>

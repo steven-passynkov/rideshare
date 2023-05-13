@@ -8,21 +8,22 @@ import {
   Row,
   Checkbox,
 } from "@nextui-org/react";
-import React from "react";
-
+import { useState } from "react";
+import Login from "./login";
+import Signup from "./signup";
 import { AiOutlineMail } from "react-icons/ai";
 import { BsFillPersonFill, BsPerson } from "react-icons/bs";
+import { useSignout } from "@/hooks/useSignout";
 
 function Header() {
-  const [visible, setVisible] = React.useState(false);
-  const handler = () => setVisible(true);
+  const [login, setLogin] = useState(false);
+  const [signup, setSignup] = useState(false);
 
-  const closeHandler = () => {
-    setVisible(false);
-    console.log("closed");
-  };
+  const [shouldSignout, setShouldSignout] = useState(false);
 
-  const [variant, setVariant] = React.useState("static");
+  const { error } = useSignout(shouldSignout);
+
+  const [variant, setVariant] = useState("static");
 
   const variants = ["static", "floating", "sticky"];
   const collapseItems = [
@@ -54,86 +55,17 @@ function Header() {
       <Navbar.Content hideIn={"xs"}>
         <Navbar.Link href="#aboutus">About Us</Navbar.Link>
         <Navbar.Link href="#problem">The Problem</Navbar.Link>
-        <Button auto shadow onPress={handler}>
-          Open modal
+        <Button auto shadow onPress={() => setLogin(true)}>
+          Log In
         </Button>
-        <Modal
-          closeButton
-          aria-labelledby="modal-title"
-          open={visible}
-          onClose={closeHandler}
-        >
-          <Modal.Header>
-            <Text id="modal-title" size={18}>
-              Sign Up
-            </Text>
-          </Modal.Header>
-          <Modal.Body>
-            <Input
-              clearable
-              bordered
-              fullWidth
-              color="#59A160"
-              size="lg"
-              placeholder="Name"
-              contentLeft={<BsFillPersonFill fill="currentColor" />}
-            />
-            <Input
-              clearable
-              bordered
-              fullWidth
-              color="#59A160"
-              size="lg"
-              placeholder="Last name"
-              contentLeft={<BsPerson fill="currentColor" />}
-            />
-            <Input
-              clearable
-              bordered
-              fullWidth
-              color="#59A160"
-              size="lg"
-              placeholder="Email"
-              contentLeft={<AiOutlineMail fill="currentColor" />}
-            />
-          </Modal.Body>
-          <Modal.Footer>
-            <Button
-              auto
-              flat
-              animated
-              shadow
-              css={{
-                color: "#FFFFFF",
-                bg: "#02852E",
-                boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",
-                "&:hover": {
-                  opacity: "0.6",
-                },
-              }}
-              onPress={closeHandler}
-            >
-              Close
-            </Button>
-            <Button
-              flat
-              animated
-              auto
-              shadow
-              css={{
-                color: "#02852E",
-                bg: "rgba(255, 255, 255, 0.8)",
-                boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",
-                "&:hover": {
-                  opacity: "0.6",
-                },
-              }}
-              onPress={closeHandler}
-            >
-              Sign in
-            </Button>
-          </Modal.Footer>
-        </Modal>{" "}
+        <Button auto shadow onPress={() => setSignup(true)}>
+          Sign Up
+        </Button>
+        <Button auto shadow onPress={() => setShouldSignout(true)}>
+          log out
+        </Button>
+        <Login open={login} setopen={() => setLogin(false)} />
+        <Signup open={signup} setopen={() => setSignup(false)} />
       </Navbar.Content>
       <Navbar.Content>
         <Navbar.Link css={{ color: "#105948" }} href="./volunteer">
