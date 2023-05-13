@@ -14,10 +14,12 @@
     "@supabase/auth-helpers-react": "^0.3.1",
     "@supabase/supabase-js": "^2.21.0",
     "aos": "^2.3.4",
+    "mapbox-gl": "^2.14.1",
     "next": "^13.3.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.8.0",
+    "react-map-gl": "^7.0.23",
     "supabase": "^1.50.11"
   }
 }

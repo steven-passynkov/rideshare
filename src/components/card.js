@@ -13,10 +13,24 @@ import {
   Image,
 } from "@nextui-org/react";
 import { useState } from "react";
+import Map from "react-map-gl";
+import { Marker } from "react-map-gl";
 
 function EventCard(props) {
   const [visible, setVisible] = useState(false);
   const openModule = () => setVisible(true);
+
+  const [viewport, setViewport] = useState({
+    latitude: 37.7749,
+    longitude: -122.4194,
+    zoom: 5,
+    maxZoom: 15,
+    minZoom: 5,
+  });
+  const [coordinates, setCoordinates] = useState({
+    latitude: 37.7749,
+    longitude: -122.4194,
+  });
 
   const closeHandler = () => {
     setVisible(false);
@@ -112,7 +126,38 @@ function EventCard(props) {
                 <Spacer y={2} />
                 <Card css={{ w: "100%", h: "200px" }}>
                   <Card.Body>
-                    <Text>Map</Text>
+                    <Map
+                      {...viewport}
+                      dragRotate={false}
+                      touchZoomRotate={false}
+                      fog={{
+                        color: ["rgb", 255, 255, 255],
+                        "horizon-blend": 0.02,
+                        range: [0.8, 8],
+                      }}
+                      onDrag={(event) =>
+                        setViewport((prevViewPortState) => ({
+                          ...prevViewPortState,
+                          latitude: event.viewState.latitude,
+                          longitude: event.viewState.longitude,
+                        }))
+                      }
+                      onZoom={(event) =>
+                        setViewport((prevViewPortState) => ({
+                          ...prevViewPortState,
+                          zoom: event.viewState.zoom,
+                        }))
+                      }
+                      mapStyle="mapbox://styles/mapbox/streets-v11"
+                      mapboxAccessToken="pk.eyJ1IjoicGFzc3lua292c3RldmVuIiwiYSI6ImNsMGlvNnQ5czA0bWkzaXJrOHg5eXBjNnMifQ.9AFfFE9nShNjH-Eg-XZrgQ"
+                    >
+                      <Marker
+                        latitude={coordinates.latitude}
+                        longitude={coordinates.longitude}
+                      >
+                        location
+                      </Marker>
+                    </Map>
                   </Card.Body>
                 </Card>
                 <Spacer y={1} />

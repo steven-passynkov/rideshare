@@ -11,8 +11,7 @@ import { createTheme } from "@nextui-org/react";
     colors: {
       // brand colors
       primaryShadow: '$green200',
-
-     
+      
       // ...  more colors
     },
     space: {},
