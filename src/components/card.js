@@ -10,13 +10,21 @@ import {
   Modal,
   User,
 } from "@nextui-org/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Map from "react-map-gl";
 import { Marker } from "react-map-gl";
+import { useContext } from "react";
+import { UserContext } from "@/contexts/UserContext";
+import { useEditEvent } from "@/hooks/useEditEvent";
+import { useFetchProfiles } from "@/hooks/useFetchProfiles";
+import { useFetchProfile } from "@/hooks/useFetchProfile";
 
 function EventCard(props) {
   const [visible, setVisible] = useState(false);
   const openModule = () => setVisible(true);
+  const { session } = useContext(UserContext);
+  const [shouldJoin, setShouldJoin] = useState(false);
+  const [shouldLoad, setShouldLoad] = useState();
 
   const [viewport, setViewport] = useState({
     latitude: 37.7749,
@@ -42,6 +50,36 @@ function EventCard(props) {
     "https://i.pravatar.cc/150?u=a048581f4e29026701d",
     "https://i.pravatar.cc/150?u=a092581d4ef9026700d",
   ];
+
+  const { loaded } = useEditEvent(
+    { name: session.user.id, id: props.id, max_people: props.max_people },
+    shouldLoad,
+    shouldJoin
+  );
+
+  const { data: driver } = useFetchProfile(
+    { profile: props.volunteer },
+    visible
+  );
+
+  const { data: people } = useFetchProfiles(
+    { profiles: props.people.people },
+    visible
+  );
+
+  function joinedRide() {
+    setShouldJoin(true);
+    closeHandler();
+  }
+
+  useEffect(() => {
+    if (visible === true) {
+      setShouldLoad(true);
+    }
+    if (visible === false) {
+      setShouldLoad(false);
+    }
+  }, [visible]);
 
   return (
     <Grid>
@@ -156,11 +194,15 @@ function EventCard(props) {
                 <Row align="center">
                   <Col>
                     <Row align="center">
-                      <User
-                        src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
-                        name="Ariana Wattson"
-                        description="Driver"
-                      />
+                      {driver ? (
+                        <User
+                          src={`https://zyyhrcdinczrzawuvnjs.supabase.co/storage/v1/object/public/images/${driver[0].profile_picture}`}
+                          name={driver[0].name}
+                          description="Driver"
+                        />
+                      ) : (
+                        <></>
+                      )}
                     </Row>
                   </Col>
 
@@ -170,51 +212,71 @@ function EventCard(props) {
                       alignItems="center"
                       justify="space=between"
                     >
-                      <Grid>
-                        <User
-                          src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
-                          name="Ariana Wattson"
-                          description="Rider"
-                        />
-                      </Grid>
-                      <Grid>
-                        <User
-                          src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
-                          name="Ariana Wattson"
-                          description="Rider"
-                        />
-                      </Grid>
-                      <Grid>
-                        <User
-                          src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
-                          name="Ariana Wattson"
-                          description="Rider"
-                        />
-                      </Grid>
+                      {people ? (
+                        <>
+                          {people.map((person, index) => (
+                            <Grid>
+                              <User
+                                src={`https://zyyhrcdinczrzawuvnjs.supabase.co/storage/v1/object/public/images/${person.profile_picture}`}
+                                name={person.name}
+                                description="Rider"
+                                key={index}
+                              />
+                            </Grid>
+                          ))}
+                        </>
+                      ) : (
+                        <></>
+                      )}
                     </Grid.Container>
                   </Col>
                 </Row>
               </Col>
             </Modal.Body>
             <Modal.Footer>
-              <Button
-                auto
-                ghost
-                shadow
-                rounded
-                color="#02852E"
-                css={{
-                  color: "#02852E",
-                  boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",
-                  "&:hover": {
-                    opacity: 0.8,
-                  },
-                }}
-              >
-                Join Ride
-              </Button>
+              {props.seates !== "full" && loaded !== false ? (
+                <Button
+                  auto
+                  ghost
+                  shadow
+                  rounded
+                  color="#02852E"
+                  onPress={() => joinedRide()}
+                  css={{
+                    color: "#02852E",
+                    boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",
+                    "&:hover": {
+                      opacity: 0.8,
+                    },
+                  }}
+                >
+                  Join Ride
+                </Button>
+              ) : (
+                <Button
+                  disabled
+                  auto
+                  ghost
+                  shadow
+                  rounded
+                  color="#02852E"
+                  onPress={() => joinedRide()}
+                  css={{
+                    color: "#02852E",
+                    boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",
+                    "&:hover": {
+                      opacity: 0.8,
+                    },
+                  }}
+                >
+                  Join Ride
+                </Button>
+              )}
+
               <Text p size={10}>
-                {props.seats} spots available
+                {props.seates == "full"
+                  ? "Ride is Full"
+                  : `${props.seats} spots available`}
               </Text>
             </Modal.Footer>
           </Modal>

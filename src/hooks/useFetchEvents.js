@@ -46,6 +46,7 @@ export const useFetchEvents = ({
 
   useEffect(() => {
     fetchEvents();
+    console.log(events)
   }, [pageNumber, pageSize, search, categories, date]);
 
   return { events, count, error };

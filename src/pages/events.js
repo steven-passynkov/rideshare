@@ -196,25 +196,24 @@ function Events() {
         <>
           {events && events.length > 0 ? (
             <>
-              {events
-                //.filter((event) =>
-                //event.name.toLowerCase().includes(search || "".toLowerCase())
-                //)
-                .map((event, index) => (
-                  <EventCard
-                    data-aos="fade-up"
-                    img={`https://zyyhrcdinczrzawuvnjs.supabase.co/storage/v1/object/public/images/public/${event.image}`}
-                    title={event.name}
-                    key={index}
-                    seats={
-                      event.people
-                        ? event.people.length() - event.max_people
-                        : event.max_people
-                    }
-                    time={event.eventTime}
-                    description={event.description}
-                  />
-                ))}
+              {events.map((event, index) => (
+                <EventCard
+                  data-aos="fade-up"
+                  img={`https://zyyhrcdinczrzawuvnjs.supabase.co/storage/v1/object/public/images/public/${event.image}`}
+                  title={event.name}
+                  key={index}
+                  id={event.id}
+                  seats={
+                    event.people
+                      ? event.max_people - event.people.people.length
+                      : event.max_people
+                  }
+                  time={event.eventTime}
+                  description={event.description}
+                  volunteer={event.user}
+                  people={event.people}
+                />
+              ))}
             </>
           ) : (
             <>{/* no events */}</>

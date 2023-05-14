@@ -16,6 +16,8 @@ import { useEffect, useState } from "react";
 import { useAddEvent } from "@/hooks/useAddEvent";
 import { useAddImage } from "@/hooks/useAddImage";
 import Client from "predicthq";
+import { useContext } from "react";
+import { UserContext } from "@/contexts/UserContext";
 
 function Volunteer() {
   const client = new Client({
@@ -48,6 +50,7 @@ function Volunteer() {
   const [events, setEvents] = useState([]);
   const [select, setSelect] = useState([]);
   const [cat, setCat] = useState(false);
+  const {session} = useContext(UserContext)
 
   const { data, error } = useAddImage({ image: image });
 
@@ -70,6 +73,7 @@ function Volunteer() {
       date: time?.split("T")[0],
       time: time?.split("T")[1],
       categories: select,
+      user: session.user.id,
     },
     shouldAddEvent
   );
