@@ -70,7 +70,6 @@ function Header() {
   }
 
   function logout() {
-    alert("hello");
     setShouldSignout(true);
   }
 

@@ -50,13 +50,13 @@ function Profile() {
       );
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event,index) => {
     console.log("click");
     event?.people?.people.forEach((person) => {
       const templateParams = {
         to_name: "Rider",
         from_name: "Volunteer",
-        message: "Hello, this is the email message.", // Replace with your actual message
+        message: message[index], 
         user_email: data?.find(({ id }) => id === person)?.email,
       };
       console.log(templateParams);
@@ -273,7 +273,7 @@ function Profile() {
                         <form
                           id="myForm"
                           onSubmit={(e) => (
-                            handleSubmit(event), e.preventDefault()
+                            handleSubmit(event,index), e.preventDefault()
                           )}
                         >
                           <Input
@@ -316,7 +316,7 @@ function Profile() {
                         <form
                           id="myForm"
                           onSubmit={(e) => (
-                            handleSubmit(event), e.preventDefault()
+                            handleSubmit(event,index), e.preventDefault()
                           )}
                         >
                           <Input

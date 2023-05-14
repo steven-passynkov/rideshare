@@ -149,6 +149,8 @@ function Volunteer() {
   }
 
   function writeTitle(e) {
+    setValid(true);
+
     setEvents([]);
     setEventTitle(e);
     client.events
