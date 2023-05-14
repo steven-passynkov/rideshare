@@ -16,9 +16,15 @@ function Signup(props) {
     shouldSignup
   );
 
+<<<<<<< HEAD
   function loginRedirect() {
     props.closeHandler();
     props.loginredirect(true);
+=======
+  function loginRedirect(){
+    props.closeHandler();
+    props.loginredirect(true)
+>>>>>>> 73fae58d8036427332336dbeae342a3d6f343505
   }
 
   useEffect(() => {
@@ -86,6 +92,7 @@ function Signup(props) {
           onChange={(event) => setPassword(event.target.value)}
         />
 
+<<<<<<< HEAD
         <Input
           align="center"
           justify="center"
@@ -106,6 +113,22 @@ function Signup(props) {
         >
           Already Have an Account?
         </Link>
+=======
+        <Input 
+        align="center"
+        justify="center"
+        color="#59A160"
+        rounded
+        shadow
+        label="Profile Picture"
+        accept="image/png, image/jpeg"
+        type="file"
+          />
+                    
+                    
+            <Link align="center" justify="center" css={{textAlign:"center"}} onClick={() => loginRedirect()}>Already Have an Account?</Link>
+
+>>>>>>> 73fae58d8036427332336dbeae342a3d6f343505
       </Modal.Body>
       <Modal.Footer>
         <Button

@@ -4,7 +4,10 @@ import { v4 as uuidv4 } from "uuid";
 
 export const useSignup = ({ name, image, email, password }, shouldSignup) => {
   const [storedProfilePicture, setStoredProfilePicture] = useState();
+<<<<<<< HEAD
   const [signUpData, useSignUpData] = useState();
+=======
+>>>>>>> 73fae58d8036427332336dbeae342a3d6f343505
   const [data, setData] = useState();
   const [error, setError] = useState();
 
@@ -16,6 +19,10 @@ export const useSignup = ({ name, image, email, password }, shouldSignup) => {
         upsert: false,
       });
     setStoredProfilePicture(data.path);
+<<<<<<< HEAD
+=======
+    console.log(data)
+>>>>>>> 73fae58d8036427332336dbeae342a3d6f343505
     setError(error);
   };
 
