@@ -50,9 +50,10 @@ function Volunteer() {
   const [events, setEvents] = useState([]);
   const [select, setSelect] = useState([]);
   const [cat, setCat] = useState(false);
-  const {session} = useContext(UserContext)
+  const { session } = useContext(UserContext);
 
   const { data, error } = useAddImage({ image: image });
+  const [allCategories, setCategories] = useState([]);
 
   const categories = [
     "concerts",
@@ -73,7 +74,7 @@ function Volunteer() {
       date: time?.split("T")[0],
       time: time?.split("T")[1],
       categories: select,
-      user: session.user.id,
+      user: session?.user.id,
     },
     shouldAddEvent
   );
@@ -105,6 +106,8 @@ function Volunteer() {
         setCat(true);
       }
     }
+
+    console.log(select);
   }
 
   function handleImageChange(e) {
@@ -323,14 +326,18 @@ function Volunteer() {
                       <Grid xs={4}>
                         <Button
                           key={index}
-                          onPress={() => toggle(index)}
+                          onPress={() => toggle(categories[index])}
                           css={{
                             border: "#02852E",
                             color: `${
-                              select.includes(index) ? "#ffffff" : "#02852E"
+                              select.includes(categories[index])
+                                ? "#ffffff"
+                                : "#02852E"
                             }`,
                             background: `${
-                              select.includes(index) ? "#02852E" : "#ffffff"
+                              select.includes(categories[index])
+                                ? "#02852E"
+                                : "#ffffff"
                             }`,
                             boxShadow:
                               "rgba(100, 100, 111, 0.1) 0px 7px 25px 0px;",

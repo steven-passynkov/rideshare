@@ -14,15 +14,19 @@ export const useFetchEvents = ({
 
   const fetchEvents = async () => {
     if (search || categories || date) {
+      let query = supabase.from("events").select("*").limit(pageSize);
+
+      if (search) {
+        query = query.ilike("name", `%${search}%`);
+      }
+      if (categories) {
+        query = query.ilike("categories", `%${categories}%`);
+      }
+      if (date) {
+        query = query.eq("date", date);
+      }
       try {
-        const { data, count, error } = await supabase
-          .from("events")
-          .select("*", { count: "exact" })
-          .limit(pageSize)
-          .ilike("name", `%${search}%`);
-        //.ilike("categories", `%${categories}%`)
-        //.ilike("date", `%${date?.split("T")[0]}%`)
-        //.ilike("time", `%${date?.split("T")[1]}%`);
+        const { data, count, error } = await query;
         if (error) throw error;
         setEvents(data);
         setCount(count);
@@ -46,7 +50,6 @@ export const useFetchEvents = ({
 
   useEffect(() => {
     fetchEvents();
-    console.log(events)
   }, [pageNumber, pageSize, search, categories, date]);
 
   return { events, count, error };

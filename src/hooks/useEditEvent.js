@@ -29,15 +29,15 @@ export const useEditEvent = (
 
   useEffect(() => {
     if (shouldLoad) {
-      console.log("id", id);
       fetchEvent();
-      console.log(eventData);
     }
   }, [shouldLoad]);
 
   useEffect(() => {
-    if (shouldJoin && eventData[0].max_people > max_people) {
-      editEvent();
+    if (shouldJoin && eventData) {
+      if (eventData[0].max_people > max_people === false) {
+        editEvent();
+      }
     }
   }, [shouldJoin]);
 

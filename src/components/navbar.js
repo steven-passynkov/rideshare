@@ -19,6 +19,8 @@ import { useSignout } from "@/hooks/useSignout";
 import { UserContext } from "@/contexts/UserContext";
 import { useContext } from "react";
 import Router from "next/router";
+import Images from "next/image"
+import Logo from "../../public/logo.png"
 
 function Header() {
   const [login, setLogin] = useState(false);
@@ -55,13 +57,10 @@ function Header() {
     }
   }
 
-<<<<<<< HEAD
   function redirectProfile() {
     Router.push("./profile");
   }
 
-=======
->>>>>>> 73fae58d8036427332336dbeae342a3d6f343505
   function redirectVolunteer() {
     if (session) {
       Router.push("./volunteer");
@@ -78,15 +77,9 @@ function Header() {
   return (
     <Navbar isBordered variant={variant}>
       <Navbar.Brand
-        css={{
-          "@xs": {
-            w: "12%",
-          },
-        }}
+       
       >
-        <Text b color="inherit">
-          RideShare
-        </Text>
+        <Images src={Logo} height={200} />
       </Navbar.Brand>
       <Navbar.Content hideIn={"xs"}>
         <Navbar.Link href="#aboutus">About Us</Navbar.Link>
@@ -135,7 +128,6 @@ function Header() {
                 bordered
                 size="lg"
                 as="button"
-<<<<<<< HEAD
                 
                 css={{color: "#02852E"}}
                 src={`https://zyyhrcdinczrzawuvnjs.supabase.co/storage/v1/object/public/images/${session.user.user_metadata.profile_picture}`}
@@ -161,33 +153,6 @@ function Header() {
                   },
                 }}
               >
-=======
-                color="secondary"
-                src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
-              />
-            </Dropdown.Trigger>
-            <Dropdown.Menu color="secondary" aria-label="Avatar Actions">
-              <Dropdown.Item css={{
-                  background: "none",
-                  outline:"none",
-                  borderBlock:"none",
-                  borderWidth:"0",
-                  height: "$18",
-                  color:"#000000",
-
-
-                  "&:hover": {
-                    background: "none",
-                    outline:"none",
-                    borderBlock:"none",
-                    borderWidth:"0",
-                    color:"#02852E",
-
-
-
-                  },
-                }} key="profile" >
->>>>>>> 73fae58d8036427332336dbeae342a3d6f343505
                 <Text b color="inherit" css={{ d: "flex" }}>
                   Signed in as
                 </Text>
@@ -195,7 +160,6 @@ function Header() {
                   {session.user.email}
                 </Text>
               </Dropdown.Item>
-<<<<<<< HEAD
               <Dropdown.Item
                 key="settings"
                 css={{
@@ -204,19 +168,10 @@ function Header() {
                   borderBlock: "none",
                   borderWidth: "0",
                   color: "#000000",
-=======
-              <Dropdown.Item key="settings" css={{
-                  background: "none",
-                  outline:"none",
-                  borderBlock:"none",
-                  borderWidth:"0",
-                  color:"#000000",
->>>>>>> 73fae58d8036427332336dbeae342a3d6f343505
 
 
                   "&:hover": {
                     background: "none",
-<<<<<<< HEAD
                     outline: "none",
                     borderBlock: "none",
                     borderWidth: "0",
@@ -326,83 +281,11 @@ function Header() {
                 key="help_and_feedback"
                 withDivider
               >
-=======
-                    outline:"none",
-                    borderBlock:"none",
-                    borderWidth:"0",
-                    color:"#02852E",
-
-
-
-                  },
-                }} withDivider>
-                My Events
-              </Dropdown.Item>
-              <Dropdown.Item key="team_settings"css={{
-                  background: "none",
-                  outline:"none",
-                  borderBlock:"none",
-                  borderWidth:"0",
-                  color:"#000000",
-
-
-                  "&:hover": {
-                    background: "none",
-                    outline:"none",
-                    borderBlock:"none",
-                    borderWidth:"0",
-                    color:"#02852E",
-
-
-
-                  },
-                }}>Volunteering</Dropdown.Item>
-              <Dropdown.Item css={{
-                  background: "none",
-                  outline:"none",
-                  borderBlock:"none",
-                  borderWidth:"0",
-                  color:"#000000",
-
-
-                  "&:hover": {
-                    background: "none",
-                    outline:"none",
-                    borderBlock:"none",
-                    borderWidth:"0",
-                    color:"#02852E",
-
-
-
-                  },
-                }} key="analytics">My Profile</Dropdown.Item>
-
-              <Dropdown.Item css={{
-                  background: "none",
-                  outline:"none",
-                  borderBlock:"none",
-                  borderWidth:"0",
-                  color:"#000000",
-
-
-                  "&:hover": {
-                    background: "none",
-                    outline:"none",
-                    borderBlock:"none",
-                    borderWidth:"0",
-                    color:"#02852E",
-
-
-
-                  },
-                }} key="help_and_feedback" withDivider > 
->>>>>>> 73fae58d8036427332336dbeae342a3d6f343505
                 Help & Feedback
               </Dropdown.Item>
               <Dropdown.Item
                 css={{
                   background: "none",
-<<<<<<< HEAD
                   outline: "none",
                   borderBlock: "none",
                   borderWidth: "0",
@@ -413,21 +296,6 @@ function Header() {
                     borderBlock: "none",
                     borderWidth: "0",
                     color: "#02852E",
-=======
-                  outline:"none",
-                  borderBlock:"none",
-                  borderWidth:"0",
-
-
-                  "&:hover": {
-                    background: "none",
-                    outline:"none",
-                    borderBlock:"none",
-                    borderWidth:"0",
-                    color:"#02852E",
-
-
->>>>>>> 73fae58d8036427332336dbeae342a3d6f343505
                   },
                 }}
               >
@@ -438,15 +306,9 @@ function Header() {
                     boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",
                     "&:hover": {
                       opacity: 0.8,
-<<<<<<< HEAD
                       outline: "none",
                       borderBlock: "none",
                       borderWidth: "0",
-=======
-                      outline:"none",
-                      borderBlock:"none",
-                      borderWidth:"0",
->>>>>>> 73fae58d8036427332336dbeae342a3d6f343505
                     },
                   }}
                   onPress={() => logout()}

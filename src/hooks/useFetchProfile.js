@@ -8,7 +8,7 @@ export const useFetchProfile = ({ profile }, getProfile) => {
   const fetchProfile = async () => {
     let { data, error } = await supabase
       .from("profiles")
-      .select("name, profile_picture")
+      .select("*")
       .eq("id", profile);
     setData(data);
     setError(error);
